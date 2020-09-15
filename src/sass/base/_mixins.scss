@@ -1,0 +1,24 @@
+// flex display
+@mixin flex-display {
+  align-items: center;
+  display: flex;
+}
+
+
+.float-to-center {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.float-to-left {
+  align-items: flex-start;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.float-to-right {
+  align-items: flex-end;
+  justify-content: flex-end;
+  display: flex;
+}

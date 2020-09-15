@@ -1,0 +1,19 @@
+
+$size: 0;
+@while $size <= 400 {
+  .w--#{$size} {
+    width: #{$size}px !important;
+  }
+  .h--#{$size} {
+    height: #{$size}px !important;
+  }
+  $size: $size + 1;
+}
+
+.w__100 {
+  width: 100%;
+}
+
+.h__100 {
+  height: 100%;
+}

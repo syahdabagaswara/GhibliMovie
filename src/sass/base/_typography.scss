@@ -1,0 +1,23 @@
+// choose text-transform with class
+
+.uppercase {
+  text-transform: uppercase !important;
+}
+.lowercase {
+  text-transform: lowercase !important;
+}
+.capitalize {
+  text-transform: capitalize !important;
+}
+.italic {
+  font-style: italic !important;
+}
+.bold {
+  font-weight: bold !important;
+}
+.underline {
+  text-decoration: underline !important;
+}
+.line-through {
+  text-decoration: line-through !important;
+}

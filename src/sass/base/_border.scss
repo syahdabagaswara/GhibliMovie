@@ -1,0 +1,24 @@
+
+$size: 0;
+@while $size <= 200 {
+  .br--#{$size} {
+    border-radius: #{$size}px !important;
+  }
+  .br__tl--#{$size} {
+    border-top-left-radius: #{$size}px !important;
+  }
+  .br__tr--#{$size} {
+    border-top-right-radius: #{$size}px !important;
+  }
+  .br__bl--#{$size} {
+    border-bottom-left-radius: #{$size}px !important;
+  }
+  .br__br--#{$size} {
+    border-bottom-right-radius: #{$size}px !important;
+  }
+  $size: $size + 1;
+}
+
+.m--auto {
+  margin: auto !important;
+}

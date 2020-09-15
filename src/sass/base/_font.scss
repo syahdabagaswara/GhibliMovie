@@ -1,0 +1,7 @@
+@for $i from 1 through 200
+{
+    .f--#{$i} {
+        font-size: #{$i}px !important;
+        line-height: 1;
+    }
+}
