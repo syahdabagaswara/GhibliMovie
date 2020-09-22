@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h2>List Movie</h2>
+    <h2>Movie List</h2>
     <v-row>
       <v-col cols="12" md="3" v-for="(item,index) in film_state.list" :key="index">
         <v-card height="100%">
@@ -27,14 +27,6 @@ export default {
   name: 'Home',
   computed: {
     ...mapState('StoreFilm', ['film_state'])
-  },
-  created () {
-    this.getList()
-  },
-  methods: {
-    getList () {
-      this.$store.dispatch('StoreFilm/list')
-    }
   }
 }
 </script>

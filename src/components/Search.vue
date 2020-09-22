@@ -51,6 +51,7 @@ export default {
       this.item = this.film_state.list
     },
     search (val) {
+      console.log(val)
       this.$store.dispatch('StoreFilm/list', val).then(() => {
         this.$router.push({ name: 'Detail', params: { slug: val } })
       })

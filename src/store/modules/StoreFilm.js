@@ -152,19 +152,97 @@ const state = {
 }
 
 const getters = {
+  getFilmBySlug: (state) => (slug) => {
+    const result = state.film_state.list.find(item => item.title === slug)
+    return result
+  },
 
+  getFilmById: (state) => (id) => {
+    const result = state.film_state.list.find(item => item.id === id)
+    return result
+  }
 }
 
 const mutations = {
 
-  showList (state, payload) {
+  SHOW_LIST (state, payload) {
     state.film_state.list = payload.data.map((item, index) => {
       item.local = state.film_state.local_list.filter((array) => array.id === item.id)[0]
       return item
     })
   },
 
-  detail (state, payload) {
+  MERGE_FROM_PEOPLE (state, payload) {
+    payload.data.map((item) => {
+      const url = item.url
+      item.films.map((film) => {
+        const index = state.film_state.list.findIndex(result => result.id === film.split('/')[4])
+        // update data & check duplicate with old item
+        const found = state.film_state.list[index].people.some(el => el === url)
+        if (!found) state.film_state.list[index].people.push(url)
+        // check duplicate new item
+        state.film_state.list[index].people.map((element) => {
+          return element
+        }).filter((v, i, currentStatus) => (
+          currentStatus.indexOf(v) === i
+        ))
+      })
+    })
+  },
+
+  MERGE_FROM_LOCATION (state, payload) {
+    payload.data.map((item) => {
+      const url = item.url[0]
+      item.films.map((film) => {
+        const index = state.film_state.list.findIndex(result => result.id === film.split('/')[4])
+        // update data & check duplicate with old item
+        const found = state.film_state.list[index].locations.some(el => el === url)
+        if (!found) state.film_state.list[index].locations.push(url)
+        // check duplicate item
+        state.film_state.list[index].locations.map((element) => {
+          return element
+        }).filter((v, i, currentStatus) => (
+          currentStatus.indexOf(v) === i
+        ))
+      })
+    })
+  },
+
+  MERGE_FROM_SPECIES (state, payload) {
+    payload.data.map((item) => {
+      const url = item.url
+      item.films.map((film) => {
+        const index = state.film_state.list.findIndex(result => result.id === film.split('/')[4])
+        // update data & check duplicate with old item
+        const found = state.film_state.list[index].species.some(el => el === url)
+        if (!found) state.film_state.list[index].species.push(url)
+        // check duplicate item
+        state.film_state.list[index].species.map((element) => {
+          return element
+        }).filter((v, i, currentStatus) => (
+          currentStatus.indexOf(v) === i
+        ))
+      })
+    })
+  },
+
+  MERGE_FROM_VEHICLES (state, payload) {
+    payload.data.map((item) => {
+      const url = item.url
+      const index = state.film_state.list.findIndex(result => result.id === item.films.split('/')[4])
+      // update data & check duplicate with old item
+      const found = state.film_state.list[index].vehicles.some(el => el === url)
+      if (!found) state.film_state.list[index].vehicles.push(url)
+      // check duplicate item
+      state.film_state.list[index].vehicles.map((element) => {
+        return element
+      }).filter((v, i, currentStatus) => (
+        currentStatus.indexOf(v) === i
+      ))
+    })
+  },
+
+  DETAIL (state, payload) {
     const merge = payload.data
     merge.local = state.film_state.local_list.filter((array) => array.id === merge.id)[0]
     state.film_state.detail = merge
@@ -180,7 +258,7 @@ const actions = {
         search += '/' + req
       }
       const res = await ApiFilm.listFilm(search)
-      commit('showList', res)
+      commit('SHOW_LIST', res)
     } catch (error) {
       return error
     }
@@ -192,7 +270,7 @@ const actions = {
       dispatch('list').then(async () => {
         const filmData = state.film_state.list.filter((data) => req === data.title)
         const res = await ApiFilm.detail(filmData[0].id)
-        commit('detail', res)
+        commit('DETAIL', res)
       })
     } catch (error) {
       return error
