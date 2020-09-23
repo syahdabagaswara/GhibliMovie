@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <h2>List People</h2>
+    <h2>Vehicles List</h2>
     <v-row>
       <v-col cols="12" md="3" v-for="(item,index) in vehicles_state.list" :key="index">
         <v-card height="100%" dark :class="item.gender=='Male'? 'blue': 'pink'">
